@@ -47,7 +47,7 @@ public class ModeleProjet implements DAOProjet {
     @Override
     public boolean delete(Projet delP) {
         Projet pj = read(delP);
-        if (pj == null) { //ATTENTION AJOUT DE CONTRAINTE D AGGREFATION FORTE
+        if (pj != null && pj.getListInvest().isEmpty() && pj.getListTravail().isEmpty()) { //ATTENTION AJOUT DE CONTRAINTE D AGGREFATION FORTE
             projets.remove(pj);
             return true;
         } else return false;
@@ -63,5 +63,16 @@ public class ModeleProjet implements DAOProjet {
     public ArrayList<Discipline> listeSpec(Projet pj) {
         return pj.listeSpecialites();
     }
+
+    @Override
+    public int totalPour(Projet pj) {
+        return pj.totalPourcentage();
+    }
+
+    @Override
+    public int totalInvet(Projet pj) {
+        return pj.investissementTotal();
+    }
+
 
 }

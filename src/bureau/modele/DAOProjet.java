@@ -10,4 +10,7 @@ public interface DAOProjet extends DAO<Projet> {
 
     ArrayList<Invest> listeDisEtInv(Projet pj);
     ArrayList<Discipline> listeSpec(Projet pj);
+    int totalPour(Projet pj);
+    int totalInvet(Projet pj);
+
 }
