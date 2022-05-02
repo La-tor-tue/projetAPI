@@ -1,9 +1,8 @@
 package bureau.modele;
 
-import bureau.metier.Discipline;
-import bureau.metier.Invest;
-import bureau.metier.Projet;
+import bureau.metier.*;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -72,6 +71,42 @@ public class ModeleProjet implements DAOProjet {
     @Override
     public int totalInvet(Projet pj) {
         return pj.investissementTotal();
+    }
+
+    @Override
+    public boolean addEmp(Projet pj, int pourcentage, Employe emp, LocalDate date) {
+        boolean ok = projets.get(projets.indexOf(pj)).addEmploye(emp, pourcentage, date);
+        return ok;
+    }
+
+    @Override
+    public boolean delEmp(Projet pj, Employe emp) {
+        boolean ok = pj.suppEmploye(emp);
+        return ok;
+    }
+
+    @Override
+    public boolean upEmp(Projet pj, Employe emp, int pourcentage) {
+        boolean ok = pj.modifEmploye(emp,pourcentage);
+        return ok;
+    }
+
+    @Override
+    public boolean addDis(Projet pj, int quantite, Discipline dis) {
+        boolean ok = projets.get(projets.indexOf(pj)).addDiscipline(dis,quantite);
+        return ok;
+    }
+
+    @Override
+    public boolean delDis(Projet pj, Discipline dis) {
+        boolean ok = pj.suppDiscipline(dis);
+        return ok;
+    }
+
+    @Override
+    public boolean upDis(Projet pj,Discipline dis, int quantite) {
+        boolean ok=pj.modifDiscipline(dis,quantite);
+        return ok;
     }
 
 

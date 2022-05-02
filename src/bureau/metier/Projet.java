@@ -220,7 +220,7 @@ public class Projet {
      * @return true si modifié
      */
 
-    private boolean modifDiscipline(Discipline dis, int quantite) {
+    public boolean modifDiscipline(Discipline dis, int quantite) {
         Invest inv = new Invest(quantite, dis);
         if (listInvest.contains(inv)) {
             listInvest.get(listInvest.indexOf(inv)).setQuantiteJH(quantite);

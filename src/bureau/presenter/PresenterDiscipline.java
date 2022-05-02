@@ -5,6 +5,8 @@ import bureau.metier.Employe;
 import bureau.modele.DAODiscipline;
 import bureau.vue.VueDisciplineInterface;
 
+import java.util.List;
+
 public class PresenterDiscipline {
 
     private DAODiscipline mdd;
@@ -88,5 +90,17 @@ public class PresenterDiscipline {
 
     protected void affAll(){
         vued.affAll(mdd.readAll());
+    }
+
+    protected Discipline choixAffAll(){
+        List<Discipline> ldis= mdd.readAll();
+        affAll();
+        do {
+            int c = Integer.parseInt(vued.getMsg("Choix?"));
+            if (c==0)
+                return null;
+            if (c>0 && c<= ldis.size())return ldis.get(c-1);
+
+        }while(true);
     }
 }

@@ -4,6 +4,8 @@ import bureau.metier.Employe;
 import bureau.modele.DAOEmploye;
 import bureau.vue.VueEmployeInterface;
 
+import java.util.List;
+
 public class PresenterEmploye {
 
     private DAOEmploye mde;
@@ -88,5 +90,17 @@ public class PresenterEmploye {
 
     protected void affAll(){
         vuee.affAll(mde.readAll());
+    }
+
+    protected Employe choixAffAll(){
+        List<Employe> lemp= mde.readAll();
+        affAll();
+        do {
+          int c = Integer.parseInt(vuee.getMsg("Choix?"));
+          if (c==0)
+              return null;
+          if (c>0 && c<= lemp.size())return lemp.get(c-1);
+
+        }while(true);
     }
 }

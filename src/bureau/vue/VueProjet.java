@@ -59,10 +59,7 @@ public class VueProjet extends VueBase implements VueProjetInterface {
             switch (c) {
                 case "1":
                     displayMsg("Nouvelle date butoire:");
-                    int j = Integer.parseInt(getMsg("Jour:", "[0-9]"));
-                    int m = Integer.parseInt(getMsg("Mois:", "[0-9]"));
-                    int a = Integer.parseInt(getMsg("Année:", "[0-9]"));
-                    LocalDate dateFin = LocalDate.of(a, m, j);
+                    LocalDate dateFin = getDate();
                     obj.setDateFin(dateFin);
                     break;
                 case "2":
@@ -97,4 +94,15 @@ public class VueProjet extends VueBase implements VueProjetInterface {
             displayMsg((++i)+"."+o.toString());
         }
     }
+
+    @Override
+    public LocalDate getDate() {
+
+        int j = Integer.parseInt(getMsg("Jour:", "[0-9]"));
+        int m = Integer.parseInt(getMsg("Mois:", "[0-9]"));
+        int a = Integer.parseInt(getMsg("Année:", "[0-9]"));
+        LocalDate date = LocalDate.of(a, m, j);
+        return date;
+    }
+
 }
