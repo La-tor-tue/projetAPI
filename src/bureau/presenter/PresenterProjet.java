@@ -10,6 +10,8 @@ public class PresenterProjet {
 
     private DAOProjet mdp;
     private VueProjetInterface vuep;
+    private PresenterEmploye PEmp;
+    private PresenterDiscipline PDisc;
 
     public PresenterProjet(DAOProjet mdp, VueProjetInterface vuep) {
         this.mdp = mdp; //Injection Dependence
@@ -17,15 +19,15 @@ public class PresenterProjet {
     }
 
     public void gestion() {
-        Projet pj = recherche();
+        Projet pj = research();
         do {
             int c = vuep.menu(new String[]{"Ajout", "Recherche", "Modification", "Suppression", "Voir tous", "Gestion Avancé", "FIN"});
             switch (c) {
                 case 1:
-                    ajout();
+                    add();
                     break;
                 case 2:
-                    recherche();
+                    research();
                     break;
                 case 3:
                     update();
@@ -47,7 +49,7 @@ public class PresenterProjet {
 
 
     public void detailProjet() {
-        Projet pj = recherche();
+        Projet pj = research();
 
         if (pj != null) {
             do {
@@ -78,7 +80,7 @@ public class PresenterProjet {
         }
     }
 
-    public void ajout() {
+    public void add() {
         Projet newP = vuep.create();
         newP = mdp.create(newP);
         if (newP == null) {
@@ -90,7 +92,7 @@ public class PresenterProjet {
         vuep.display(newP);
     }
 
-    public Projet recherche() {
+    public Projet research() {
         int idpj = vuep.read();
         Projet pj = new Projet(idpj, "");
         pj = mdp.read(pj);
@@ -103,7 +105,7 @@ public class PresenterProjet {
 
     public void update() {
 
-        Projet pj = recherche();
+        Projet pj = research();
         if (pj != null) {
             vuep.display(pj);
             pj = vuep.update(pj);
@@ -114,7 +116,7 @@ public class PresenterProjet {
     }
 
     public void delete() {
-        Projet pj = recherche();
+        Projet pj = research();
         if (pj != null) {
             Boolean ok = mdp.delete(pj);
             if (ok) {
