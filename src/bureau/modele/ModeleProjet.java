@@ -64,6 +64,11 @@ public class ModeleProjet implements DAOProjet {
     }
 
     @Override
+    public ArrayList<Travail> listTravailEtEmp(Projet pj) {
+        return pj.listeEmployeEtPourcentageEtDate();
+    }
+
+    @Override
     public int totalPour(Projet pj) {
         return pj.totalPourcentage();
     }

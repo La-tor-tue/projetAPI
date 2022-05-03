@@ -11,6 +11,8 @@ public interface DAOProjet extends DAO<Projet> {
 
     ArrayList<Discipline> listeSpec(Projet pj);
 
+    ArrayList<Travail>listTravailEtEmp(Projet pj);
+
     int totalPour(Projet pj);
 
     int totalInvet(Projet pj);

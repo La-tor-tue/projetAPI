@@ -59,13 +59,13 @@ public class PresenterProjet {
                 int c = vuep.menu(new String[]{"Afficher Spécialités", "Afficher les investissments", "Afficher les Employés", "Gestion Employé", "Gestion Discipline", "Total pourcentage", "Investissement total", "FIN"});
                 switch (c) {
                     case 1:
-                        l = pj.listeSpecialites();
+                        l = mdp.listeSpec(pj);
                         break;
                     case 2:
-                        l = pj.listeDisciplinesEtInvestissement();
+                        l = mdp.listeDisEtInv(pj);
                         break;
                     case 3:
-                        l = pj.listeEmployeEtPourcentageEtDate();
+                        l = mdp.listTravailEtEmp(pj);
                         break;
                     case 4:
                         detailProjetTravail();
@@ -74,10 +74,10 @@ public class PresenterProjet {
                         detailProjetInvestissement();
                         break;
                     case 6:
-                        vuep.displayMsg("Pourcentage total: " + pj.totalPourcentage());
+                        vuep.displayMsg("Pourcentage total: " + mdp.totalPour(pj));
                         break;
                     case 7:
-                        vuep.displayMsg("Pourcentage total: " + pj.investissementTotal());
+                        vuep.displayMsg("Investissement total: " + mdp.totalInvet(pj));
                         break;
                     case 8:
                         return;
