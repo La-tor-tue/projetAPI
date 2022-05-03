@@ -19,6 +19,14 @@ public class PresenterProjet {
         this.vuep = vuep;
     }
 
+    public void setPemp(PresenterEmploye pemp) {
+        this.pemp = pemp;
+    }
+
+    public void setPdisc(PresenterDiscipline pdisc) {
+        this.pdisc = pdisc;
+    }
+
     public void gestion() {
         Projet pj = research();
         do {

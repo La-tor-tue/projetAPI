@@ -17,7 +17,7 @@ public class PresenterDiscipline {
         this.vued = vued;
     }
 
-    public void Gestion() {
+    public void gestion() {
         do {
             int c = vued.menu(new String[]{"Ajout", "Recherche", "Mise à jour", "Supression", "Voir tous", "FIN"});
             switch (c) {

@@ -17,6 +17,10 @@ public class PresenterEmploye {
         this.vuee = vuee;
     }
 
+    public void setPdis(PresenterDiscipline pdis) {
+        this.pdis = pdis;
+    }
+
     public void gestion() {
         do {
             int c = vuee.menu(new String[]{"Ajout", "Recherche", "Mise à jour", "Supression", "Voir tous", "FIN"});
