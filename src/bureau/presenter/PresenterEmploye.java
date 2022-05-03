@@ -10,6 +10,7 @@ public class PresenterEmploye {
 
     private DAOEmploye mde;
     private VueEmployeInterface vuee;
+    private PresenterDiscipline pdis;
 
     public PresenterEmploye(DAOEmploye mde, VueEmployeInterface vuee) {
         this.mde = mde;
@@ -18,7 +19,7 @@ public class PresenterEmploye {
 
     public void gestion() {
         do {
-            int c = vuee.menu(new String[]{"Ajout","Recherche","Mise à jour","Supression","Voir tous","FIN"});
+            int c = vuee.menu(new String[]{"Ajout", "Recherche", "Mise à jour", "Supression", "Voir tous", "FIN"});
             switch (c) {
                 case 1:
                     add();
@@ -44,6 +45,7 @@ public class PresenterEmploye {
 
     protected void add() {
         Employe newEMP = vuee.create();
+        newEMP.setExpertise(pdis.choixAffAll());
         newEMP = mde.create(newEMP);
         if (newEMP == null) {
             vuee.displayMsg("erreur création");
@@ -88,19 +90,19 @@ public class PresenterEmploye {
         }
     }
 
-    protected void affAll(){
+    protected void affAll() {
         vuee.affAll(mde.readAll());
     }
 
-    protected Employe choixAffAll(){
-        List<Employe> lemp= mde.readAll();
+    protected Employe choixAffAll() {
+        List<Employe> lemp = mde.readAll();
         affAll();
         do {
-          int c = Integer.parseInt(vuee.getMsg("Choix?"));
-          if (c==0)
-              return null;
-          if (c>0 && c<= lemp.size())return lemp.get(c-1);
+            int c = Integer.parseInt(vuee.getMsg("Choix?"));
+            if (c == 0)
+                return null;
+            if (c > 0 && c <= lemp.size()) return lemp.get(c - 1);
 
-        }while(true);
+        } while (true);
     }
 }

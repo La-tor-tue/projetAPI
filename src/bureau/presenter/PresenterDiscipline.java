@@ -19,7 +19,7 @@ public class PresenterDiscipline {
 
     public void Gestion() {
         do {
-            int c = vued.menu(new String[]{"Ajout","Recherche","Mise à jour","Supression","Voir tous","FIN"});
+            int c = vued.menu(new String[]{"Ajout", "Recherche", "Mise à jour", "Supression", "Voir tous", "FIN"});
             switch (c) {
                 case 1:
                     add();
@@ -42,10 +42,10 @@ public class PresenterDiscipline {
         } while (true);
     }
 
-    protected void add(){
-        Discipline newdis= vued.create();
-        newdis= mdd.create(newdis);
-        if (newdis==null){
+    protected void add() {
+        Discipline newdis = vued.create();
+        newdis = mdd.create(newdis);
+        if (newdis == null) {
             vued.displayMsg("Erreur lors de la création");
             return;
         }
@@ -54,11 +54,11 @@ public class PresenterDiscipline {
         vued.display(newdis);
     }
 
-    protected Discipline research(){
-        int nrech= vued.read();
-        Discipline dis=new Discipline(nrech,null);
-        dis= mdd.read(dis);
-        if (dis==null){
+    protected Discipline research() {
+        int nrech = vued.read();
+        Discipline dis = new Discipline(nrech, null);
+        dis = mdd.read(dis);
+        if (dis == null) {
             vued.displayMsg("Client introuvable");
             return null;
         }
@@ -66,15 +66,15 @@ public class PresenterDiscipline {
         return dis;
     }
 
-    protected void update(){
+    protected void update() {
         Discipline dis = research();
-        if (dis!=null){
-            dis= vued.update(dis);
+        if (dis != null) {
+            dis = vued.update(dis);
             mdd.update(dis);
         }
     }
 
-    protected void delete(){
+    protected void delete() {
         Discipline dis = research();
         if (dis != null) {
             Boolean ok = mdd.delete(dis);
@@ -88,19 +88,19 @@ public class PresenterDiscipline {
         }
     }
 
-    protected void affAll(){
+    protected void affAll() {
         vued.affAll(mdd.readAll());
     }
 
-    protected Discipline choixAffAll(){
-        List<Discipline> ldis= mdd.readAll();
+    protected Discipline choixAffAll() {
+        List<Discipline> ldis = mdd.readAll();
         affAll();
         do {
             int c = Integer.parseInt(vued.getMsg("Choix?"));
-            if (c==0)
+            if (c == 0)
                 return null;
-            if (c>0 && c<= ldis.size())return ldis.get(c-1);
+            if (c > 0 && c <= ldis.size()) return ldis.get(c - 1);
 
-        }while(true);
+        } while (true);
     }
 }

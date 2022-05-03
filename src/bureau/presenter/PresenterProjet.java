@@ -56,7 +56,7 @@ public class PresenterProjet {
             do {
                 ArrayList l = null;
                 int t;
-                int c = vuep.menu(new String[]{"Afficher Spécialités", "Afficher les investissments", "Afficher les Employés", "Gestion Employé", "Gestion Discipline","Total pourcentage","Investissement total", "FIN"});
+                int c = vuep.menu(new String[]{"Afficher Spécialités", "Afficher les investissments", "Afficher les Employés", "Gestion Employé", "Gestion Discipline", "Total pourcentage", "Investissement total", "FIN"});
                 switch (c) {
                     case 1:
                         l = pj.listeSpecialites();
@@ -74,17 +74,16 @@ public class PresenterProjet {
                         detailProjetInvestissement();
                         break;
                     case 6:
-                        vuep.displayMsg("Pourcentage total: "+pj.totalPourcentage());
+                        vuep.displayMsg("Pourcentage total: " + pj.totalPourcentage());
                         break;
                     case 7:
-                        vuep.displayMsg("Pourcentage total: "+pj.investissementTotal());
+                        vuep.displayMsg("Pourcentage total: " + pj.investissementTotal());
                         break;
                     case 8:
                         return;
                 }
-
                 if (l == null) {
-                    if (c<4) {
+                    if (c < 4) {
                         vuep.displayMsg("Erreur");
                         continue;
                     }
@@ -223,35 +222,35 @@ public class PresenterProjet {
 
     }
 
-    public void addDis(){
+    public void addDis() {
         Projet pj = research();
         if (pj == null) return;
-        Discipline dis= pdisc.choixAffAll();
-        if (dis==null)return;
+        Discipline dis = pdisc.choixAffAll();
+        if (dis == null) return;
         int quantite = Integer.parseInt(vuep.getMsg("Quantité J/H: "));
-        boolean ok = mdp.addDis(pj,quantite,dis);
+        boolean ok = mdp.addDis(pj, quantite, dis);
         if (ok) vuep.displayMsg("Discipline enregistré pour le projet: " + pj.getNom());
         else vuep.displayMsg("Erreur lors de l'enregistrement");
     }
 
-    public void upDis(){
+    public void upDis() {
         Projet pj = research();
         if (pj == null) return;
-        Discipline dis= pdisc.choixAffAll();
-        if (dis==null)return;
+        Discipline dis = pdisc.choixAffAll();
+        if (dis == null) return;
         int quantite = Integer.parseInt(vuep.getMsg("Quantité J/H: "));
-        boolean ok = mdp.upDis(pj,dis,quantite);
+        boolean ok = mdp.upDis(pj, dis, quantite);
         if (ok) vuep.displayMsg("Discipline modifié pour le projet: " + pj.getNom());
         else vuep.displayMsg("Erreur lors de la modification");
     }
 
 
-    public void delDis(){
+    public void delDis() {
         Projet pj = research();
         if (pj == null) return;
-        Discipline dis= pdisc.choixAffAll();
-        if (dis==null)return;
-        boolean ok = mdp.delDis(pj,dis);
+        Discipline dis = pdisc.choixAffAll();
+        if (dis == null) return;
+        boolean ok = mdp.delDis(pj, dis);
         if (ok) vuep.displayMsg("Discipline supprimé pour le projet: " + pj.getNom());
         else vuep.displayMsg("Erreur lors de la suppresion");
     }
