@@ -47,7 +47,8 @@ public class VueEmploye extends VueBase implements VueEmployeInterface{
 
     @Override
     public Integer read() {
-        return null;
+        int c = Integer.parseInt(getMsg("Id employé: ","[0-9]"));
+        return c;
     }
 
     @Override

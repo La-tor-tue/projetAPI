@@ -28,7 +28,6 @@ public class PresenterProjet {
     }
 
     public void gestion() {
-        Projet pj = research();
         do {
             int c = vuep.menu(new String[]{"Ajout", "Recherche", "Modification", "Suppression", "Voir tous", "Gestion Avancé", "FIN"});
             switch (c) {
@@ -59,11 +58,9 @@ public class PresenterProjet {
 
     public void detailProjet() {
         Projet pj = research();
-
         if (pj != null) {
             do {
                 ArrayList l = null;
-                int t;
                 int c = vuep.menu(new String[]{"Afficher Spécialités", "Afficher les investissments", "Afficher les Employés", "Gestion Employé", "Gestion Discipline", "Total pourcentage", "Investissement total", "FIN"});
                 switch (c) {
                     case 1:
@@ -76,10 +73,10 @@ public class PresenterProjet {
                         l = mdp.listTravailEtEmp(pj);
                         break;
                     case 4:
-                        detailProjetTravail();
+                        detailProjetTravail(pj);
                         break;
                     case 5:
-                        detailProjetInvestissement();
+                        detailProjetInvestissement(pj);
                         break;
                     case 6:
                         vuep.displayMsg("Pourcentage total: " + mdp.totalPour(pj));
@@ -102,18 +99,18 @@ public class PresenterProjet {
         }
     }
 
-    public void detailProjetTravail() {
+    public void detailProjetTravail(Projet pj) {
         do {
             int c = vuep.menu(new String[]{"Ajout Employé", "Suppression Employé", "Modifié Employé", "FIN"});
             switch (c) {
                 case 1:
-                    addEmp();
+                    addEmp(pj);
                     break;
                 case 2:
-                    delEmp();
+                    delEmp(pj);
                     break;
                 case 3:
-                    upEmp();
+                    upEmp(pj);
                     break;
                 case 4:
                     return;
@@ -122,18 +119,18 @@ public class PresenterProjet {
     }
 
 
-    public void detailProjetInvestissement() {
+    public void detailProjetInvestissement(Projet pj) {
         do {
             int c = vuep.menu(new String[]{"Ajout Discipline", "Suppression Discipline", "Modifié Discipline", "FIN"});
             switch (c) {
                 case 1:
-                    addDis();
+                    addDis(pj);
                     break;
                 case 2:
-                    delDis();
+                    delDis(pj);
                     break;
                 case 3:
-                    upDis();
+                    upDis(pj);
                     break;
                 case 4:
                     return;
@@ -196,9 +193,7 @@ public class PresenterProjet {
         vuep.affListOBJ(mdp.readAll());
     }
 
-    public void addEmp() {
-        Projet pj = research();
-        if (pj == null) return;
+    public void addEmp(Projet pj) {
         Employe emp = pemp.choixAffAll();
         if (emp == null) return;
         int pourcentage = Integer.parseInt(vuep.getMsg("Pourcentage: "));
@@ -208,9 +203,7 @@ public class PresenterProjet {
         else vuep.displayMsg("Erreur lors de l'enregistrement");
     }
 
-    public void delEmp() {
-        Projet pj = research();
-        if (pj == null) return;
+    public void delEmp(Projet pj) {
         Employe emp = pemp.choixAffAll();
         if (emp == null) return;
         boolean ok = mdp.delEmp(pj, emp);
@@ -218,9 +211,7 @@ public class PresenterProjet {
         else vuep.displayMsg("Erreur lors de la suppresion");
     }
 
-    public void upEmp() {
-        Projet pj = research();
-        if (pj == null) return;
+    public void upEmp(Projet pj) {
         Employe emp = pemp.choixAffAll();
         if (emp == null) return;
         int pourcentage = Integer.parseInt(vuep.getMsg("Pourcentage: "));
@@ -230,9 +221,7 @@ public class PresenterProjet {
 
     }
 
-    public void addDis() {
-        Projet pj = research();
-        if (pj == null) return;
+    public void addDis(Projet pj) {
         Discipline dis = pdisc.choixAffAll();
         if (dis == null) return;
         int quantite = Integer.parseInt(vuep.getMsg("Quantité J/H: "));
@@ -241,9 +230,7 @@ public class PresenterProjet {
         else vuep.displayMsg("Erreur lors de l'enregistrement");
     }
 
-    public void upDis() {
-        Projet pj = research();
-        if (pj == null) return;
+    public void upDis(Projet pj) {
         Discipline dis = pdisc.choixAffAll();
         if (dis == null) return;
         int quantite = Integer.parseInt(vuep.getMsg("Quantité J/H: "));
@@ -253,9 +240,7 @@ public class PresenterProjet {
     }
 
 
-    public void delDis() {
-        Projet pj = research();
-        if (pj == null) return;
+    public void delDis(Projet pj) {
         Discipline dis = pdisc.choixAffAll();
         if (dis == null) return;
         boolean ok = mdp.delDis(pj, dis);
