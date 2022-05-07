@@ -157,7 +157,7 @@ public class ModeleProjetBD implements DAOProjet {
             pstm.setInt(1, pj.getIdPj());
             ResultSet rs = pstm.executeQuery();
             do {
-                int iddis = rs.getInt(1);
+                int iddis = rs.getInt(1); //Check
                 String nom = rs.getString(2);
                 int quantite = rs.getInt(3);
                 Discipline dis = new Discipline(iddis, nom);
@@ -178,7 +178,7 @@ public class ModeleProjetBD implements DAOProjet {
             pstm.setInt(1, pj.getIdPj());
             ResultSet rs = pstm.executeQuery();
             do {
-                int iddis = rs.getInt(1);
+                int iddis = rs.getInt(1); //Check
                 String nom = rs.getString(2);
                 Discipline dis = new Discipline(iddis, nom);
                 listSpec.add(dis);
@@ -197,7 +197,7 @@ public class ModeleProjetBD implements DAOProjet {
             pstm.setInt(1, pj.getIdPj());
             ResultSet rs = pstm.executeQuery();
             do {
-                int idemp = rs.getInt(1);
+                int idemp = rs.getInt(1); //Check
                 String nom = rs.getString(2);
                 int pour = rs.getInt(3);
                 //LocalDate dateEng = rs.getDate(8);
@@ -213,63 +213,117 @@ public class ModeleProjetBD implements DAOProjet {
 
     @Override
     public int totalPour(Projet pj) {
-        int total=0;
-        String query = "Select  * from apiprojetetinvest where idpj=?";
+        String query = "Select  * from apiprojetetettotalpour where idpj=?";
         try (PreparedStatement pstm = dbConnect.prepareStatement(query)) {
             pstm.setInt(1, pj.getIdPj());
             ResultSet rs = pstm.executeQuery();
-            do {
-                total=total+rs.getInt(1);
-            } while (rs.next());
+            if (rs.next())return rs.getInt(1);
+
         } catch (SQLException e) {
             return 0;
         }
-        return total;
+        return 0;
     }
 
     @Override
     public int totalInvet(Projet pj) {
-        int total=0;
-        String query = "Select  * from apiprojetettravail where idpj=?";
+        String query = "Select  * from apiprojetettotalquantit where idpj=?";
         try (PreparedStatement pstm = dbConnect.prepareStatement(query)) {
             pstm.setInt(1, pj.getIdPj());
             ResultSet rs = pstm.executeQuery();
-            do {
-                total=total+rs.getInt(1);
-            } while (rs.next());
+            if(rs.next())return rs.getInt(1);
         } catch (SQLException e) {
             return 0;
         }
-        return total;
+        return 0;
     }
 
     @Override
     public boolean addEmp(Projet pj, int pourcentage, Employe emp, LocalDate date) {
+        String query = "Insert into apitravail values(?,?,?,?)";
+        try (PreparedStatement pstm = dbConnect.prepareStatement(query)){
+            pstm.setInt(1,pj.getIdPj());
+            pstm.setInt(2,emp.getIdEmp());
+            pstm.setInt(3,pourcentage);
+            pstm.setDate(4, Date.valueOf(date));
+            int i= pstm.executeUpdate();
+            if (i!=0)return true;
+        }catch (SQLException e){
+            return false;
+        }
         return false;
     }
 
     @Override
     public boolean delEmp(Projet pj, Employe emp) {
+        String query = "Delete * from apitravail where idpj=? and idemp=?";
+        try (PreparedStatement pstm = dbConnect.prepareStatement(query)){
+            pstm.setInt(1,pj.getIdPj());
+            pstm.setInt(2,emp.getIdEmp());
+            int i= pstm.executeUpdate();
+            if (i!=0)return true;
+        }catch (SQLException e){
+            return false;
+        }
         return false;
     }
 
     @Override
     public boolean upEmp(Projet pj, Employe emp, int pourcentage) {
+        String query = "Update  apitravail set tapourcentage=? where idpj=? and idemp=?";
+        try (PreparedStatement pstm = dbConnect.prepareStatement(query)){
+            pstm.setInt(1,pourcentage);
+            pstm.setInt(2,pj.getIdPj());
+            pstm.setInt(3,emp.getIdEmp());
+            int i= pstm.executeUpdate();
+            if (i!=0)return true;
+        }catch (SQLException e){
+            return false;
+        }
         return false;
     }
 
     @Override
     public boolean addDis(Projet pj, int quantite, Discipline dis) {
+        String query = "Insert into apiinvestissement values(?,?,?)";
+        try (PreparedStatement pstm = dbConnect.prepareStatement(query)){
+            pstm.setInt(1,pj.getIdPj());
+            pstm.setInt(2,dis.getIdDis());
+            pstm.setInt(3,quantite);
+            int i= pstm.executeUpdate();
+            if (i!=0)return true;
+        }catch (SQLException e){
+            return false;
+        }
         return false;
     }
 
     @Override
     public boolean delDis(Projet pj, Discipline dis) {
+        String query = "delete * from apiinvestissement where idpj=? and iddis=?";
+        try (PreparedStatement pstm = dbConnect.prepareStatement(query)){
+            pstm.setInt(1,pj.getIdPj());
+            pstm.setInt(2,dis.getIdDis());
+            int i= pstm.executeUpdate();
+            if (i!=0)return true;
+        }catch (SQLException e){
+            return false;
+        }
         return false;
     }
 
     @Override
     public boolean upDis(Projet pj, Discipline dis, int quantite) {
+        String query = "update apiinvestissement set invquantitejh=? where idpj=? and iddis=?";
+        try (PreparedStatement pstm = dbConnect.prepareStatement(query)){
+            pstm.setInt(1,quantite);
+            pstm.setInt(2,pj.getIdPj());
+            pstm.setInt(3,dis.getIdDis());
+            int i= pstm.executeUpdate();
+            if (i!=0)return true;
+        }catch (SQLException e){
+            return false;
+        }
         return false;
     }
 }
