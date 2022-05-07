@@ -8,7 +8,7 @@ import java.sql.Connection;
 import java.sql.*;
 import java.util.List;
 
-public class ModeleDisciplineBD implements DAODiscipline{
+public class ModeleDisciplineBD implements DAODiscipline {
     private Connection dbConnect;
 
     public void ModeleEmployeBD() {
@@ -17,23 +17,27 @@ public class ModeleDisciplineBD implements DAODiscipline{
 
     @Override
     public Discipline create(Discipline newObj) {
-        String query ="insert into apidisciplines(disnom,disdescription) values(?,?)";
-        String query2="Select iddis from apidisciplines where disnom=? and disdescription=?";
-        try(PreparedStatement pstm1 = dbConnect.prepareStatement(query);PreparedStatement pstm2 = dbConnect.prepareStatement(query2)){
-        pstm1.setString(1,newObj.getNom());
-        pstm1.setString(2,newObj.getDesc());
-        int n = pstm1.executeUpdate();
-        if (n!=0){
+        String query = "insert into apidisciplines(disnom,disdescription) values(?,?)";
+        String query2 = "Select iddis from apidisciplines where disnom=? and disdescription=?";
+        try (PreparedStatement pstm1 = dbConnect.prepareStatement(query)) {
+            pstm1.setString(1, newObj.getNom());
+            pstm1.setString(2, newObj.getDesc());
+            int n = pstm1.executeUpdate();
+            if (n != 0) {
+                try (PreparedStatement pstm2 = dbConnect.prepareStatement(query2)) {
 
-            pstm2.setString(1,newObj.getNom());
-            pstm2.setString(2,newObj.getDesc());
-            ResultSet rs = pstm2.executeQuery();
-            if(rs.next()){
-                int idDis= rs.getInt(1);
-                newObj.setIdDis(idDis);
-            }else return null;
-        }
-        }catch (Exception e){
+                    pstm2.setString(1, newObj.getNom());
+                    pstm2.setString(2, newObj.getDesc());
+                    ResultSet rs = pstm2.executeQuery();
+                    if (rs.next()) {
+                        int idDis = rs.getInt(1);
+                        newObj.setIdDis(idDis);
+                    } else return null;
+                } catch (SQLException e) {
+                    return null;
+                }
+            }
+        } catch (SQLException e) {
             return null;
         }
         return newObj;
@@ -61,10 +65,10 @@ public class ModeleDisciplineBD implements DAODiscipline{
             pstm.setInt(1, reachRech.getIdDis());
             ResultSet rs = pstm.executeQuery();
             if (rs.next()) {
-                int iddis= rs.getInt(1);
+                int iddis = rs.getInt(1);
                 String nom = rs.getString(2);
                 String desc = rs.getString(3);
-                find = new Discipline(iddis,nom,desc,null);
+                find = new Discipline(iddis, nom, desc, null);
             } else return null;
         } catch (SQLException e) {
             return null;
@@ -95,8 +99,8 @@ public class ModeleDisciplineBD implements DAODiscipline{
             do {
                 int iddis = rs.getInt(1);
                 String nom = rs.getString(2);
-                String desc=rs.getString(3);
-                Discipline find = new Discipline(iddis,nom,desc,null);
+                String desc = rs.getString(3);
+                Discipline find = new Discipline(iddis, nom, desc, null);
                 listDis.add(find);
             } while (rs.next());
         } catch (SQLException e) {

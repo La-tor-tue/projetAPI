@@ -19,9 +19,7 @@ public class ModeleEmployeBD implements DAOEmploye {
     public Employe create(Employe newObj) {
         String query1 = "insert into apiemploye(empmatricule,empmail,empnom,empprenom,emptel,iddis) values(?,?,?,?,?,?)";
         String query2 = "select idemp from apiemploye where empnom= ? and empprenom =? and emptel =? and empmail =? and empmatricule =?";
-        try (PreparedStatement pstm1 = dbConnect.prepareStatement(query1);
-             PreparedStatement pstm2 = dbConnect.prepareStatement(query2);
-        ) {
+        try (PreparedStatement pstm1 = dbConnect.prepareStatement(query1)) {
             pstm1.setString(1, newObj.getMatricule());
             pstm1.setString(2, newObj.getMail());
             pstm1.setString(3, newObj.getNom());
@@ -31,18 +29,21 @@ public class ModeleEmployeBD implements DAOEmploye {
             int n = pstm1.executeUpdate();
             if (n == 0) return null;
             if (n == 1) {
-                pstm2.setString(1, newObj.getNom());
-                pstm2.setString(2, newObj.getPrenom());
-                pstm2.setString(3, newObj.getTel());
-                pstm2.setString(4, newObj.getMail());
-                pstm2.setString(5, newObj.getMatricule());
-                ResultSet rs = pstm2.executeQuery();
-                if (rs.next()) {
-                    int idemploye = rs.getInt(1);
-                    newObj.setIdEmp(idemploye);
-                } else return null;
+                try (PreparedStatement pstm2 = dbConnect.prepareStatement(query2)) {
+                    pstm2.setString(1, newObj.getNom());
+                    pstm2.setString(2, newObj.getPrenom());
+                    pstm2.setString(3, newObj.getTel());
+                    pstm2.setString(4, newObj.getMail());
+                    pstm2.setString(5, newObj.getMatricule());
+                    ResultSet rs = pstm2.executeQuery();
+                    if (rs.next()) {
+                        int idemploye = rs.getInt(1);
+                        newObj.setIdEmp(idemploye);
+                    } else return null;
+                } catch (SQLException e) {
+                    return null;
+                }
             }
-
         } catch (SQLException e) {
             return null;
         }

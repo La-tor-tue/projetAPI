@@ -72,9 +72,9 @@ public class Gestion {
     }
 
     public static void main(String[] args) {
-        String  modeVue = args[0];
-        String modeData= args[1];
-        Gestion g = new Gestion(modeVue,modeData);
+        String modeVue = args[0];
+        String modeData = args[1];
+        Gestion g = new Gestion(modeVue, modeData);
     }
 }
 

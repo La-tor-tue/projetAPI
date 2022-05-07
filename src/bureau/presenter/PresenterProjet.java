@@ -197,7 +197,7 @@ public class PresenterProjet {
         Employe emp = pemp.choixAffAll();
         if (emp == null) return;
         int pourcentage = Integer.parseInt(vuep.getMsg("Pourcentage: "));
-        LocalDate date = vuep.getDate();
+        LocalDate date = vuep.getDate("Date d'engagement:");
         boolean ok = mdp.addEmp(pj, pourcentage, emp, date);
         if (ok) vuep.displayMsg("Employé enregistrer pour le projet: " + pj.getNom());
         else vuep.displayMsg("Erreur lors de l'enregistrement");

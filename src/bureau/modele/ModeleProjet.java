@@ -92,13 +92,13 @@ public class ModeleProjet implements DAOProjet {
 
     @Override
     public boolean upEmp(Projet pj, Employe emp, int pourcentage) {
-        boolean ok = pj.modifEmploye(emp,pourcentage);
+        boolean ok = pj.modifEmploye(emp, pourcentage);
         return ok;
     }
 
     @Override
     public boolean addDis(Projet pj, int quantite, Discipline dis) {
-        boolean ok = projets.get(projets.indexOf(pj)).addDiscipline(dis,quantite);
+        boolean ok = projets.get(projets.indexOf(pj)).addDiscipline(dis, quantite);
         return ok;
     }
 
@@ -109,8 +109,8 @@ public class ModeleProjet implements DAOProjet {
     }
 
     @Override
-    public boolean upDis(Projet pj,Discipline dis, int quantite) {
-        boolean ok=pj.modifDiscipline(dis,quantite);
+    public boolean upDis(Projet pj, Discipline dis, int quantite) {
+        boolean ok = pj.modifDiscipline(dis, quantite);
         return ok;
     }
 

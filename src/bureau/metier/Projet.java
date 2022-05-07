@@ -25,6 +25,8 @@ public class Projet {
      * Date de fin du projet
      */
     private LocalDate dateDebut, dateFin;
+
+    private float cout;
     /**
      * List des employés et de leur pourcentage du projet
      */
@@ -43,11 +45,13 @@ public class Projet {
      * @param listInvest  liste des disciplines avec leur quantite JH du projet
      *                    constructeur parametré
      */
-    public Projet(int idPj, String nom, LocalDate dateDebut, LocalDate dateFin, ArrayList<Travail> listTravail, ArrayList<Invest> listInvest) {
+
+    public Projet(int idPj, String nom, LocalDate dateDebut, LocalDate dateFin, float cout, ArrayList<Travail> listTravail, ArrayList<Invest> listInvest) {
         this.idPj = idPj;
         this.nom = nom;
         this.dateDebut = dateDebut;
         this.dateFin = dateFin;
+        this.cout = cout;
         this.listTravail = listTravail;
         this.listInvest = listInvest;
     }
@@ -172,6 +176,15 @@ public class Projet {
         this.listInvest = listInvest;
     }
 
+    public float getCout() {
+        return cout;
+    }
+
+    public void setCout(float cout) {
+        this.cout = cout;
+    }
+
+
     @Override
     public String toString() {
         return "Projet{" +
@@ -179,6 +192,7 @@ public class Projet {
                 ", nom='" + nom + '\'' +
                 ", dateDebut=" + dateDebut +
                 ", dateFin=" + dateFin +
+                ", cout=" + cout +
                 ", listTravail=" + listTravail +
                 ", listInvest=" + listInvest +
                 '}';

@@ -5,7 +5,7 @@ public interface VueBaseInterface {
 
     void displayMsg(String msg);
 
-    String getMsg(String invite,String regex);
+    String getMsg(String invite, String regex);
 
 
 }

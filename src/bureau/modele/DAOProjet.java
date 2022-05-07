@@ -11,7 +11,7 @@ public interface DAOProjet extends DAO<Projet> {
 
     ArrayList<Discipline> listeSpec(Projet pj);
 
-    ArrayList<Travail>listTravailEtEmp(Projet pj);
+    ArrayList<Travail> listTravailEtEmp(Projet pj);
 
     int totalPour(Projet pj);
 
@@ -27,5 +27,5 @@ public interface DAOProjet extends DAO<Projet> {
 
     boolean delDis(Projet pj, Discipline dis);
 
-    boolean upDis(Projet pj,Discipline dis, int quantite);
+    boolean upDis(Projet pj, Discipline dis, int quantite);
 }
