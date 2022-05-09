@@ -14,6 +14,10 @@ public class ModeleProjetBD implements DAOProjet {
 
     public void ModeleEmployeBD() {
         dbConnect = DBConnection.getConnection();
+        if (dbConnect == null) {
+            System.exit(1);
+        }
+        System.out.println("connexion établie");
     }
 
 

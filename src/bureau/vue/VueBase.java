@@ -7,16 +7,16 @@ public class VueBase implements VueBaseInterface {
 
     @Override
     public int menu(String[] options) {
-        Scanner sc = new Scanner(System.in);
         do {
             StringBuilder sb = new StringBuilder(50);
             int i = 0;
             for (String option : options) sb.append((++i) + "." + option + "\n");
-            int ch = Integer.parseInt(getMsg("choix", "[0-9]"));
+            System.out.println(sb.toString());
+            int ch = Integer.parseInt(getMsg("Choix: ", "[0-9]+"));
             if (ch >= 1 && ch <= options.length) {
                 return ch;
             }
-            System.out.println("choix invalide");
+            displayMsg("Choix INVALIDE!");
         } while (true);
     }
 

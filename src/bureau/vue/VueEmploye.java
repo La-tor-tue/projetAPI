@@ -12,11 +12,11 @@ public class VueEmploye extends VueBase implements VueEmployeInterface {
 
     @Override
     public Employe create() {
-        String matricule = getMsg("Matriclue:", "[0-9a-zA-z]");
-        String nom = getMsg("Nom:", "[a-zA-z]");
-        String prenom = getMsg("Prenom:", "[a-zA-z]");
-        String telephone = getMsg("Telephone:", "[0-9]");
-        String mail = getMsg("Mail:", "[0-9a-zA-Z]");
+        String matricule = getMsg("Matriclue:", "[0-9a-zA-z]+");
+        String nom = getMsg("Nom:", "[a-z A-z]+");
+        String prenom = getMsg("Prenom:", "[a-z A-z]+");
+        String telephone = getMsg("Telephone:", "^[0-9]{3}[/]{1}[0-9]{6}$");
+        String mail = getMsg("Mail:", "^(.+)@(.+)$");
         Employe newEMP = new Employe(0, nom, prenom, matricule, telephone, mail, null);
         return newEMP;
     }
@@ -29,25 +29,25 @@ public class VueEmploye extends VueBase implements VueEmployeInterface {
     @Override
     public Employe update(Employe obj) {
         do {
-            String c = getMsg("1.Matricule\n2.Téléphone\n3.FIN", "[0-9]");
+            int c = Integer.parseInt(getMsg("1.Matricule\n2.Téléphone\n3.FIN", "[0-9]"));
             switch (c) {
-                case "1":
-                    obj.setMatricule(getMsg("Matricule:", "[0-9a-zA-Z]"));
+                case 1:
+                    obj.setMatricule(getMsg("Matricule:", "[0-9a-zA-Z]+"));
                     break;
-                case "2":
-                    obj.setTel(getMsg("Telephone:", "[0-9]"));
+                case 2:
+                    obj.setTel(getMsg("Telephone:", "^[0-9]{3}[/]{1}[0-9]{6}$"));
                     break;
-                case "3":
+                case 3:
                     return obj;
                 default:
-                    displayMsg("Choix invalide, entrez un chiffre valable");
+                    displayMsg("Choix INVALIDE!");
             }
         } while (true);
     }
 
     @Override
     public Integer read() {
-        int c = Integer.parseInt(getMsg("Id employé: ", "[0-9]"));
+        int c = Integer.parseInt(getMsg("Id employé: ", "[0-9]+"));
         return c;
     }
 

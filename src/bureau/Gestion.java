@@ -8,59 +8,63 @@ import bureau.vue.*;
 
 public class Gestion {
 
-    private PresenterDiscipline pdis;
-    private PresenterEmploye pemp;
-    private PresenterProjet ppj;
+    private PresenterDiscipline pDis;
+    private PresenterEmploye pEmp;
+    private PresenterProjet pPj;
 
     public Gestion(String modeVue, String modeData) {
-        VueDisciplineInterface vuedis;
-        VueEmployeInterface vueemp;
-        VueProjetInterface vuepj;
-        VueBaseInterface vueb;
+        VueDisciplineInterface vueDis;
+        VueEmployeInterface vueEmp;
+        VueProjetInterface vuePj;
+        VueBaseInterface vueBase;
 
-        DAODiscipline mdd;
-        DAOEmploye mde;
-        DAOProjet mdp;
+        DAODiscipline mdD;
+        DAOEmploye mdE;
+        DAOProjet mdP;
         /*
         A BESOIN DES VERISON GRAPHIQUE ET CONNECTE POUR FONCTIONNEE
-        if (modeVue.equals("console")){
-            vuedis = new VueDiscipline();
-            vueemp = new VueEmploye();
-            vuepj = new VueProjet();
-            vueb = new VueBase();
+        if (modeVue.equals("console")){*/
+        vueDis = new VueDiscipline();
+        vueEmp = new VueEmploye();
+        vuePj = new VueProjet();
+        vueBase = new VueBase();
+            /*
         }else {
 
         }
-
+        */
         if (modeData.equals("db")){
+        mdD=new ModeleDisciplineBD();
+        mdP=new ModeleProjetBD();
+        mdE=new ModeleEmploye();
 
         }else {
-            mdd = new ModeleDiscipline();
-            mdp = new ModeleProjet();
-            mde=new ModeleEmploye();
+            mdD = new ModeleDiscipline();
+            mdP = new ModeleProjet();
+            mdE = new ModeleEmploye();
         }
 
-        pdis= new PresenterDiscipline(mdd,vuedis);
-        pemp= new PresenterEmploye(mde,vueemp);
-        ppj= new PresenterProjet(mdp,vuepj);
+        pDis= new PresenterDiscipline(mdD,vueDis);
+        pEmp= new PresenterEmploye(mdE,vueEmp);
+        pPj= new PresenterProjet(mdP,vuePj);
 
-        ppj.setPdisc(pdis);
-        ppj.setPemp(pemp);
-        pemp.setPdis(pdis);
+        pPj.setPdisc(pDis);
+        pPj.setPemp(pEmp);
+        pEmp.setPdis(pDis);
 
         do {
 
-            int ch = vueb.menu(new String[]{"Projets","Employé","Dis","fin"});
+            int ch = vueBase.menu(new String[]{"Projets","Employé","Dis","fin"});
 
             switch (ch) {
                 case 1:
-                    ppj.gestion();
+                    pPj.gestion();
                     break;
                 case 2:
-                    pemp.gestion();
+                    pEmp.gestion();
                     break;
                 case 3:
-                    pdis.gestion();
+                    pDis.gestion();
                     break;
                 case 4:
                     System.exit(0);
@@ -68,7 +72,7 @@ public class Gestion {
                     System.out.println("choix invalide");
             }
         } while (true);
-        */
+
     }
 
     public static void main(String[] args) {

@@ -13,8 +13,8 @@ public class VueDiscipline extends VueBase implements VueDisciplineInterface {
 
     @Override
     public Discipline create() {
-        String nom = getMsg("Nom: ", "[:alpha:]");
-        String desc = getMsg("Description: ", "[a-zA-Z]");
+        String nom = getMsg("Nom: ", "[^0-9]+");
+        String desc = getMsg("Description: ", "[.]+");
         return new Discipline(0, nom, desc, null);
     }
 
@@ -26,22 +26,22 @@ public class VueDiscipline extends VueBase implements VueDisciplineInterface {
     @Override
     public Discipline update(Discipline obj) {
         do {
-            String c = getMsg("1.Description\n2.FIN", "[0-9]");
+            int c = Integer.parseInt(getMsg("1.Description\n2.FIN", "[0-9]"));
             switch (c) {
-                case "1":
-                    obj.setDesc(getMsg("Description:", "[:alpha:]"));
+                case 1:
+                    obj.setDesc(getMsg("Description:", "[.]+"));
                     break;
-                case "2":
+                case 2:
                     return obj;
                 default:
-                    displayMsg("Choix invalide, entrez un chiffre valable");
+                    displayMsg("Choix INVALIDE!");
             }
         } while (true);
     }
 
     @Override
     public Integer read() {
-        int c = Integer.parseInt(getMsg("Id discipline: ", "[0-9]"));
+        int c = Integer.parseInt(getMsg("Id discipline: ", "[0-9]+"));
         return c;
     }
 

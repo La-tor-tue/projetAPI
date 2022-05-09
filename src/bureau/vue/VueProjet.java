@@ -17,10 +17,14 @@ public class VueProjet extends VueBase implements VueProjetInterface {
 
     @Override
     public Projet create() {
-        String nom = getMsg("Nom", "[a-zA-Z]");
+        String nom = getMsg("Nom", ".+");
         LocalDate dateDebut = getDate("Date de Début:");
-        LocalDate dateFin = getDate("Date de Fin:");
-        int cout = Integer.parseInt(getMsg("Cout monétaire", "[0-1.]"));
+        LocalDate dateFin;
+        do {
+            dateFin = getDate("Date de Fin:");
+        }while (dateFin.isBefore(dateDebut));
+
+        int cout = Integer.parseInt(getMsg("Cout monétaire", "[0-9]+"));
         Projet newP = new Projet(0, nom, dateDebut, dateFin, cout, null, null);
         return newP;
     }
@@ -55,12 +59,12 @@ public class VueProjet extends VueBase implements VueProjetInterface {
                     obj.setDateFin(dateFin);
                     break;
                 case 2:
-                    obj.setCout(Integer.parseInt(getMsg("Nouveau cout: ", "[0-9]")));
+                    obj.setCout(Integer.parseInt(getMsg("Nouveau cout: ", "[0-9]+")));
                     break;
                 case 3:
                     return obj;
                 default:
-                    displayMsg("choix invalide");
+                    displayMsg("Choix INVALIDE!");
             }
 
         } while (true);
@@ -69,7 +73,7 @@ public class VueProjet extends VueBase implements VueProjetInterface {
 
     @Override
     public Integer read() {
-        int id = Integer.parseInt(getMsg("Numero de projet:", "[0-9]"));
+        int id = Integer.parseInt(getMsg("Numero de projet:", "[0-9]+"));
         return id;
     }
 
@@ -93,9 +97,9 @@ public class VueProjet extends VueBase implements VueProjetInterface {
     @Override
     public LocalDate getDate(String invite) {
         displayMsg(invite);
-        int j = Integer.parseInt(getMsg("Jour:", "[0-9]"));
-        int m = Integer.parseInt(getMsg("Mois:", "[0-9]"));
-        int a = Integer.parseInt(getMsg("Année:", "[0-9]"));
+        int j = Integer.parseInt(getMsg("Jour:", "[0-9]{1,2}"));
+        int m = Integer.parseInt(getMsg("Mois:", "[0-9]{1,2}"));
+        int a = Integer.parseInt(getMsg("Année:", "[0-9]{4}"));
         LocalDate date = LocalDate.of(a, m, j);
         return date;
     }
