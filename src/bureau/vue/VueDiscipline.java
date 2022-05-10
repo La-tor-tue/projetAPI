@@ -47,9 +47,9 @@ public class VueDiscipline extends VueBase implements VueDisciplineInterface {
     }
 
     @Override
-    public void affAll(ArrayList<Discipline> lobj) {
+    public void affAll(List lobj) {
         int i = 0;
-        for (Discipline d : lobj) {
+        for (Object d : lobj) {
             displayMsg((++i) + ". " + d.toString());
         }
     }

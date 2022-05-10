@@ -53,9 +53,9 @@ public class VueEmploye extends VueBase implements VueEmployeInterface {
     }
 
     @Override
-    public void affAll(ArrayList<Employe> lobj) {
+    public void affAll(List lobj) {
         int i = 0;
-        for (Employe e : lobj) {
+        for (Object e : lobj) {
             displayMsg((++i) + ". " + e.toString());
         }
     }

@@ -90,9 +90,9 @@ public class VueProjet extends VueBase implements VueProjetInterface {
     }
 
     @Override
-    public void affAll(ArrayList<Projet> lobj) {
+    public void affAll(List lobj) {
         int i = 0;
-        for (Projet p : lobj) {
+        for (Object p : lobj) {
             displayMsg((++i) + ". " + p.toString());
         }
     }
