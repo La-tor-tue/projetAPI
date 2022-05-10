@@ -4,8 +4,10 @@ import bureau.metier.*;
 import bureau.modele.DAOProjet;
 import bureau.vue.VueProjetInterface;
 
+import java.awt.*;
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.List;
 
 public class PresenterProjet {
 
@@ -60,7 +62,7 @@ public class PresenterProjet {
         Projet pj = research();
         if (pj != null) {
             do {
-                ArrayList l = null;
+                List l = null;
                 int c = vuep.menu(new String[]{"Afficher Spécialités", "Afficher les investissments", "Afficher les Employés", "Gestion Employé", "Gestion Discipline", "Total pourcentage", "Investissement total", "FIN"});
                 switch (c) {
                     case 1:
@@ -190,7 +192,7 @@ public class PresenterProjet {
     }
 
     public void affAll() {
-        vuep.affListOBJ(mdp.readAll());
+        vuep.affAll(mdp.readAll());
     }
 
     public void addEmp(Projet pj) {

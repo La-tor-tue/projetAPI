@@ -17,7 +17,7 @@ public class ModeleDiscipline implements DAODiscipline {
     @Override
     public boolean delete(Discipline delD) {
         Discipline d = read(delD);
-        if (d != null && d.getListEmploye().isEmpty()) { //AGGREGATION FORTE
+        if (d != null && d.getListEmploye().isEmpty()) {
             disciplines.remove(d);
             return true;
         } else return false;

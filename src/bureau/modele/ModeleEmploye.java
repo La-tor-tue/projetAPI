@@ -20,8 +20,9 @@ public class ModeleEmploye implements DAOEmploye {
     @Override
     public boolean delete(Employe delE) {
         Employe e = read(delE);
-        if (e != null) { //AGGREGATION FORTE
+        if (e != null) {
             employes.remove(e);
+            e.getExpertise().getListEmploye().remove(e);
             return true;
         } else return false;
     }

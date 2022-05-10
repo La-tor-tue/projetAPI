@@ -8,6 +8,7 @@ import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.List;
 
 public class VueProjet extends VueBase implements VueProjetInterface {
 
@@ -38,6 +39,7 @@ public class VueProjet extends VueBase implements VueProjetInterface {
         if (!obj.getListInvest().isEmpty()) {
             String c = getMsg("Afficher les investissements? (O/N)", "[onON]{1}");
             if (c.equals("o") || c.equals("O")) {
+                displayMsg(obj.getListInvest().toString());
                 for (Invest i : obj.getListInvest()) {
                     displayMsg(i.toString());
                 }
@@ -97,9 +99,9 @@ public class VueProjet extends VueBase implements VueProjetInterface {
 
 
     @Override
-    public void affListOBJ(ArrayList<Projet> listObj) {
+    public void affListOBJ(List listObj) {
         int i = 0;
-        for (Projet o : listObj) {
+        for (Object o : listObj) {
             displayMsg((++i) + "." + o.toString());
         }
     }
