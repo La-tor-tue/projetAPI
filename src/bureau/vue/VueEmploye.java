@@ -2,6 +2,7 @@ package bureau.vue;
 
 import bureau.metier.Employe;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class VueEmploye extends VueBase implements VueEmployeInterface {
@@ -52,7 +53,7 @@ public class VueEmploye extends VueBase implements VueEmployeInterface {
     }
 
     @Override
-    public void affAll(List<Employe> lobj) {
+    public void affAll(ArrayList<Employe> lobj) {
         int i = 0;
         for (Employe e : lobj) {
             displayMsg((++i) + ". " + e.toString());

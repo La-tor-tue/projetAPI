@@ -1,10 +1,7 @@
 package bureau.modele;
 
 import bureau.metier.Discipline;
-import bureau.metier.Projet;
-
 import java.util.ArrayList;
-import java.util.List;
 
 public class ModeleDiscipline implements DAODiscipline {
 

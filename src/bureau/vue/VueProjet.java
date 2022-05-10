@@ -8,7 +8,6 @@ import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.List;
 
 public class VueProjet extends VueBase implements VueProjetInterface {
 
@@ -89,7 +88,7 @@ public class VueProjet extends VueBase implements VueProjetInterface {
     }
 
     @Override
-    public void affAll(List<Projet> lobj) {
+    public void affAll(ArrayList<Projet> lobj) {
         int i = 0;
         for (Projet p : lobj) {
             displayMsg((++i) + ". " + p.toString());

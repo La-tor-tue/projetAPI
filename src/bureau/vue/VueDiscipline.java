@@ -3,6 +3,7 @@ package bureau.vue;
 import bureau.metier.Discipline;
 import bureau.metier.Employe;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class VueDiscipline extends VueBase implements VueDisciplineInterface {
@@ -46,7 +47,7 @@ public class VueDiscipline extends VueBase implements VueDisciplineInterface {
     }
 
     @Override
-    public void affAll(List<Discipline> lobj) {
+    public void affAll(ArrayList<Discipline> lobj) {
         int i = 0;
         for (Discipline d : lobj) {
             displayMsg((++i) + ". " + d.toString());

@@ -1,5 +1,6 @@
 package bureau.vue;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public interface VueInterface<T, U> {
@@ -18,5 +19,5 @@ public interface VueInterface<T, U> {
 
     U read();
 
-    void affAll(List<T> lobj);
+    void affAll(ArrayList<T> lobj);
 }
