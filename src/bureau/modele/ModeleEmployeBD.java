@@ -2,16 +2,18 @@ package bureau.modele;
 
 import bureau.metier.Discipline;
 import bureau.metier.Employe;
+import bureau.metier.Projet;
 import myconnections.DBConnection;
 
 import java.sql.Connection;
 import java.sql.*;
+import java.util.ArrayList;
 import java.util.List;
 
 public class ModeleEmployeBD implements DAOEmploye {
-    private Connection dbConnect;
+    protected Connection dbConnect;
 
-    public void ModeleEmployeBD() {
+    public ModeleEmployeBD() {
         dbConnect = DBConnection.getConnection();
     }
 
@@ -105,8 +107,8 @@ public class ModeleEmployeBD implements DAOEmploye {
     }
 
     @Override
-    public List<Employe> readAll() {
-        List<Employe> listEmp = null;
+    public ArrayList<Employe> readAll() {
+        ArrayList<Employe> listEmp = null;
         String query = "Select * from apiemployedis";
         try (PreparedStatement pstm = dbConnect.prepareStatement(query)) {
             ResultSet rs = pstm.executeQuery();

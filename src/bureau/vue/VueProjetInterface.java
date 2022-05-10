@@ -7,7 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public interface VueProjetInterface extends VueInterface<Projet, Integer> {
-    void affListOBJ(List listObj);
+    void affListOBJ(ArrayList<Projet> listObj);
 
     LocalDate getDate(String invite);
 }

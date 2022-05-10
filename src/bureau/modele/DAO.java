@@ -1,6 +1,8 @@
 package bureau.modele;
 
-import java.util.List;
+import bureau.metier.Projet;
+
+import java.util.ArrayList;
 
 public interface DAO<T> {
     T create(T newObj);
@@ -11,6 +13,6 @@ public interface DAO<T> {
 
     T update(T upRech);
 
-    List<T> readAll();
+    ArrayList<T> readAll();
 
 }

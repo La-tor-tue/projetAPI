@@ -1,18 +1,22 @@
 package bureau.modele;
 
+import bureau.metier.Discipline;
 import bureau.metier.Employe;
+import bureau.metier.Projet;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class ModeleEmploye implements DAOEmploye {
 
-    private List<Employe> employes = new ArrayList<>();
+    private ArrayList<Employe> employes = new ArrayList<>();
 
     @Override
     public Employe create(Employe newE) {
         if (employes.contains(newE)) return null;
         employes.add(newE);
+        Discipline tmp = newE.getExpertise();
+        tmp.getListEmploye().add(newE);
         return newE;
     }
 
@@ -48,7 +52,7 @@ public class ModeleEmploye implements DAOEmploye {
     }
 
     @Override
-    public List<Employe> readAll() {
+    public ArrayList<Employe> readAll() {
         return employes;
     }
 

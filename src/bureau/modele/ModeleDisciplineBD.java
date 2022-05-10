@@ -1,17 +1,16 @@
 package bureau.modele;
 
 import bureau.metier.Discipline;
-import bureau.metier.Employe;
 import myconnections.DBConnection;
 
 import java.sql.Connection;
 import java.sql.*;
-import java.util.List;
+import java.util.ArrayList;
 
 public class ModeleDisciplineBD implements DAODiscipline {
-    private Connection dbConnect;
+    protected Connection dbConnect;
 
-    public void ModeleEmployeBD() {
+    public ModeleDisciplineBD() {
         dbConnect = DBConnection.getConnection();
     }
 
@@ -91,8 +90,8 @@ public class ModeleDisciplineBD implements DAODiscipline {
     }
 
     @Override
-    public List<Discipline> readAll() {
-        List<Discipline> listDis = null;
+    public ArrayList<Discipline> readAll() {
+        ArrayList<Discipline> listDis = null;
         String query = "Select * from apidisciplines";
         try (PreparedStatement pstm = dbConnect.prepareStatement(query)) {
             ResultSet rs = pstm.executeQuery();

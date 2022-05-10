@@ -1,13 +1,14 @@
 package bureau.modele;
 
 import bureau.metier.Discipline;
+import bureau.metier.Projet;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class ModeleDiscipline implements DAODiscipline {
 
-    private List<Discipline> disciplines = new ArrayList<>();
+    private ArrayList<Discipline> disciplines = new ArrayList<>();
 
     @Override
     public Discipline create(Discipline newD) {
@@ -47,7 +48,7 @@ public class ModeleDiscipline implements DAODiscipline {
     }
 
     @Override
-    public List<Discipline> readAll() {
+    public ArrayList<Discipline> readAll() {
         return disciplines;
     }
 

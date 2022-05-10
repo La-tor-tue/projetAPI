@@ -4,11 +4,10 @@ import bureau.metier.*;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.List;
 
 public class ModeleProjet implements DAOProjet {
 
-    private List<Projet> projets = new ArrayList<>();
+    private ArrayList<Projet> projets = new ArrayList<>();
 
     @Override
     public Projet create(Projet newP) {
@@ -39,7 +38,7 @@ public class ModeleProjet implements DAOProjet {
     }
 
     @Override
-    public List<Projet> readAll() {
+    public ArrayList<Projet> readAll() {
         return projets;
     }
 
