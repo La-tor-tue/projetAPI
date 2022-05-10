@@ -36,14 +36,15 @@ public class VueProjet extends VueBase implements VueProjetInterface {
     @Override
     public void display(Projet obj) {
         displayMsg(obj.toString());
-        if (!obj.getListInvest().isEmpty() && obj.getListInvest() != null) {
+        if (!obj.getListInvest().isEmpty()) {
             String c = getMsg("Afficher les investissements? (O/N)", "[onON]{1}");
             if (c.equals("o") || c.equals("O")) {
                 for (Invest i : obj.getListInvest()) {
                     displayMsg(i.toString());
                 }
             }
-        } else if (!obj.getListTravail().isEmpty() && obj.getListTravail() != null) {
+        }
+        if (!obj.getListTravail().isEmpty()) {
             String c = getMsg("Afficher les employé(e)s travaillant sur le projet?", "[onON]{1}");
             if (c.equals("o") || c.equals("O")) {
                 for (Travail t : obj.getListTravail()) {
