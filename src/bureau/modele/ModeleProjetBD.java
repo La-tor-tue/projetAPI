@@ -6,7 +6,6 @@ import myconnections.DBConnection;
 import java.sql.*;
 import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.List;
 
 public class ModeleProjetBD implements DAOProjet {
     protected Connection dbConnect;
@@ -41,6 +40,8 @@ public class ModeleProjetBD implements DAOProjet {
                     if (rs.next()) {
                         int idpj = rs.getInt(1);
                         newObj.setIdPj(idpj);
+                        newObj.setListTravail(new ArrayList<>());
+                        newObj.setListInvest(new ArrayList<>());
                     } else return null;
                 } catch (SQLException e) {
                     return null;
@@ -55,14 +56,14 @@ public class ModeleProjetBD implements DAOProjet {
 
     @Override
     public boolean delete(Projet delRech) {
-        String query = "delete * from apiprojet where idpj = ?";
+        String query = "delete  from apiprojet where idpj = ?";
         try (PreparedStatement pstm = dbConnect.prepareStatement(query)) {
             pstm.setInt(1, delRech.getIdPj());
             int n = pstm.executeUpdate();
             if (n == 0) return false;
 
         } catch (SQLException e) {
-            return false;
+            System.out.println(e.getMessage());
         }
         return true;
     }
@@ -78,11 +79,12 @@ public class ModeleProjetBD implements DAOProjet {
                 reachRech.setDateDebut(rs.getDate(3).toLocalDate());
                 reachRech.setDateFin(rs.getDate(4).toLocalDate());
                 reachRech.setCout(rs.getBigDecimal(5));
+
                 reachRech.setListInvest(listeDisEtInv(reachRech));
                 reachRech.setListTravail(listTravailEtEmp(reachRech));
             }
         } catch (SQLException e) {
-            return null;
+            System.out.println(e.getMessage());
         }
         return reachRech;
     }
@@ -105,15 +107,17 @@ public class ModeleProjetBD implements DAOProjet {
 
     @Override
     public ArrayList<Projet> readAll() {
-        ArrayList<Projet> listPj = null;
+        ArrayList<Projet> listPj = new ArrayList<>();
         String query = "Select idpj from apiprojet";
         try (PreparedStatement pstm = dbConnect.prepareStatement(query)) {
             ResultSet rs = pstm.executeQuery();
-            do {
+            while (rs.next()) {
                 Projet find = new Projet(rs.getInt(1), null);
                 find = read(find);
+                find.setListInvest(new ArrayList<>());
+                find.setListTravail(new ArrayList<>());
                 listPj.add(find);
-            } while (rs.next());
+            }
         } catch (SQLException e) {
             return null;
         }
@@ -122,53 +126,53 @@ public class ModeleProjetBD implements DAOProjet {
 
     @Override
     public ArrayList<Invest> listeDisEtInv(Projet pj) {
-        ArrayList<Invest> listInv = null;
-        String query = "Select  * from apiprojetetinvest where idpj=?";
+        ArrayList<Invest> listInv = new ArrayList<>();
+        String query = "Select  * from apiprojetinvest where idpj=?";
         try (PreparedStatement pstm = dbConnect.prepareStatement(query)) {
             pstm.setInt(1, pj.getIdPj());
             ResultSet rs = pstm.executeQuery();
-            do {
+            while (rs.next()) {
                 int iddis = rs.getInt(6);
                 String nom = rs.getString(7);
                 String desc = rs.getString(8);
                 int quantite = rs.getInt(9);
                 Discipline tmp = new Discipline(iddis, nom, desc, null);
                 Invest find = new Invest(quantite, tmp);
-                pj.getListInvest().add(find);
-            } while (rs.next());
+                listInv.add(find);
+            }
         } catch (SQLException e) {
-            return null;
+            System.out.println(e.getMessage());
         }
         return listInv;
     }
 
     @Override
     public ArrayList<Discipline> listeSpec(Projet pj) {
-        ArrayList<Discipline> listSpec = null;
-        String query = "Select  * from apiprojetetinvest where idpj=?";
+        ArrayList<Discipline> listSpec = new ArrayList<>();
+        String query = "Select  * from apiprojetinvest where idpj=?";
         try (PreparedStatement pstm = dbConnect.prepareStatement(query)) {
             pstm.setInt(1, pj.getIdPj());
             ResultSet rs = pstm.executeQuery();
-            do {
+            while (rs.next()) {
                 int iddis = rs.getInt(1); //Check
                 String nom = rs.getString(2);
                 Discipline dis = new Discipline(iddis, nom);
                 listSpec.add(dis);
-            } while (rs.next());
+            }
         } catch (SQLException e) {
-            return null;
+            System.out.println(e.getMessage());
         }
         return listSpec;
     }
 
     @Override
     public ArrayList<Travail> listTravailEtEmp(Projet pj) {
-        ArrayList<Travail> listTravail = null;
-        String query = "Select  * from apiprojetettravail where idpj=?";
+        ArrayList<Travail> listTravail = new ArrayList<>();
+        String query = "Select  * from apiprojettravail where idpj=?";
         try (PreparedStatement pstm = dbConnect.prepareStatement(query)) {
             pstm.setInt(1, pj.getIdPj());
             ResultSet rs = pstm.executeQuery();
-            do {
+            while (rs.next()) {
                 int idemp = rs.getInt(3);
                 String matricule = rs.getString(4);
                 String nom = rs.getString(5);
@@ -183,10 +187,10 @@ public class ModeleProjetBD implements DAOProjet {
                 Discipline expertise = new Discipline(iddis, disNom, desc, null);
                 Employe tmp = new Employe(idemp, nom, prenom, matricule, tel, email, expertise);
                 Travail find = new Travail(pour, dateEng, tmp);
-                pj.getListTravail().add(find);
-            } while (rs.next());
+                listTravail.add(find);
+            }
         } catch (SQLException e) {
-            return null;
+            System.out.println(e.getMessage());
         }
         return listTravail;
     }
@@ -200,7 +204,7 @@ public class ModeleProjetBD implements DAOProjet {
             if (rs.next()) return rs.getInt(1);
 
         } catch (SQLException e) {
-            return 0;
+            System.out.println(e.getMessage());
         }
         return 0;
     }
@@ -236,7 +240,7 @@ public class ModeleProjetBD implements DAOProjet {
 
     @Override
     public boolean delEmp(Projet pj, Employe emp) {
-        String query = "Delete * from apitravail where idpj=? and idemp=?";
+        String query = "Delete from apitravail where idpj=? and idemp=?";
         try (PreparedStatement pstm = dbConnect.prepareStatement(query)) {
             pstm.setInt(1, pj.getIdPj());
             pstm.setInt(2, emp.getIdEmp());
@@ -280,7 +284,7 @@ public class ModeleProjetBD implements DAOProjet {
 
     @Override
     public boolean delDis(Projet pj, Discipline dis) {
-        String query = "delete * from apiinvestissement where idpj=? and iddis=?";
+        String query = "delete  from apiinvestissement where idpj=? and iddis=?";
         try (PreparedStatement pstm = dbConnect.prepareStatement(query)) {
             pstm.setInt(1, pj.getIdPj());
             pstm.setInt(2, dis.getIdDis());

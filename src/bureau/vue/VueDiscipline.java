@@ -7,10 +7,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class VueDiscipline extends VueBase implements VueDisciplineInterface {
-    @Override
-    public String getMsg(String invite) {
-        return null;
-    }
 
     @Override
     public Discipline create() {
@@ -47,9 +43,9 @@ public class VueDiscipline extends VueBase implements VueDisciplineInterface {
     }
 
     @Override
-    public void affAll(List lobj) {
+    public void affAll(List<Discipline> lobj) {
         int i = 0;
-        for (Object d : lobj) {
+        for (Discipline d : lobj) {
             displayMsg((++i) + ". " + d.toString());
         }
     }

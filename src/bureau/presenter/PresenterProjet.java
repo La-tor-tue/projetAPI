@@ -94,8 +94,7 @@ public class PresenterProjet {
                         vuep.displayMsg("Erreur");
                         continue;
                     }
-                }
-                if (l.isEmpty()) vuep.displayMsg("Aucun élèment");
+                } else if (l.isEmpty()) vuep.displayMsg("Aucun élèment");
                 else vuep.affListOBJ(l);
             } while (true);
         }
@@ -198,7 +197,7 @@ public class PresenterProjet {
     public void addEmp(Projet pj) {
         Employe emp = pemp.choixAffAll();
         if (emp == null) return;
-        int pourcentage = Integer.parseInt(vuep.getMsg("Pourcentage: "));
+        int pourcentage = Integer.parseInt(vuep.getMsg("Pourcentage: ", "[0-9]{1,2}"));
         LocalDate date = vuep.getDate("Date d'engagement:");
         boolean ok = mdp.addEmp(pj, pourcentage, emp, date);
         if (ok) vuep.displayMsg("Employé enregistrer pour le projet: " + pj.getNom());
@@ -216,7 +215,7 @@ public class PresenterProjet {
     public void upEmp(Projet pj) {
         Employe emp = pemp.choixAffAll();
         if (emp == null) return;
-        int pourcentage = Integer.parseInt(vuep.getMsg("Pourcentage: "));
+        int pourcentage = Integer.parseInt(vuep.getMsg("Pourcentage: ", "[0-9]{1,2}"));
         boolean ok = mdp.upEmp(pj, emp, pourcentage);
         if (ok) vuep.displayMsg("Employé modifié pour le projet: " + pj.getNom());
         else vuep.displayMsg("Erreur lors de la modification");
@@ -226,7 +225,7 @@ public class PresenterProjet {
     public void addDis(Projet pj) {
         Discipline dis = pdisc.choixAffAll();
         if (dis == null) return;
-        int quantite = Integer.parseInt(vuep.getMsg("Quantité J/H: "));
+        int quantite = Integer.parseInt(vuep.getMsg("Quantité J/H: ", "[0-9]{1,2}"));
         boolean ok = mdp.addDis(pj, quantite, dis);
         if (ok) vuep.displayMsg("Discipline enregistré pour le projet: " + pj.getNom());
         else vuep.displayMsg("Erreur lors de l'enregistrement");
@@ -235,7 +234,7 @@ public class PresenterProjet {
     public void upDis(Projet pj) {
         Discipline dis = pdisc.choixAffAll();
         if (dis == null) return;
-        int quantite = Integer.parseInt(vuep.getMsg("Quantité J/H: "));
+        int quantite = Integer.parseInt(vuep.getMsg("Quantité J/H: ", "[0-9]{1,2}"));
         boolean ok = mdp.upDis(pj, dis, quantite);
         if (ok) vuep.displayMsg("Discipline modifié pour le projet: " + pj.getNom());
         else vuep.displayMsg("Erreur lors de la modification");

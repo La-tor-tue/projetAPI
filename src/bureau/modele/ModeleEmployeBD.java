@@ -54,7 +54,7 @@ public class ModeleEmployeBD implements DAOEmploye {
 
     @Override
     public boolean delete(Employe delRech) {
-        String query = "delete * from apiemploye where idemp = ?";
+        String query = "delete from apiemploye where idemp = ?";
         try (PreparedStatement pstm = dbConnect.prepareStatement(query)) {
             pstm.setInt(1, delRech.getIdEmp());
             int n = pstm.executeUpdate();
@@ -108,11 +108,11 @@ public class ModeleEmployeBD implements DAOEmploye {
 
     @Override
     public ArrayList<Employe> readAll() {
-        ArrayList<Employe> listEmp = null;
+        ArrayList<Employe> listEmp = new ArrayList<>();
         String query = "Select * from apiemployedis";
         try (PreparedStatement pstm = dbConnect.prepareStatement(query)) {
             ResultSet rs = pstm.executeQuery();
-            do {
+            while (rs.next()) {
                 int idemp = rs.getInt(1);
                 String matricule = rs.getString(2);
                 String mail = rs.getString(3);
@@ -125,7 +125,7 @@ public class ModeleEmployeBD implements DAOEmploye {
                 Discipline dis = new Discipline(idDis, disNom, desc, null);
                 Employe find = new Employe(idemp, nom, prenom, matricule, tel, mail, dis);
                 listEmp.add(find);
-            } while (rs.next());
+            }
         } catch (SQLException e) {
             return null;
         }

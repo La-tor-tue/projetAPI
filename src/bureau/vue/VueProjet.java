@@ -13,11 +13,6 @@ import java.util.List;
 public class VueProjet extends VueBase implements VueProjetInterface {
 
     @Override
-    public String getMsg(String invite) {
-        return null;
-    }
-
-    @Override
     public Projet create() {
         String nom = getMsg("Nom", ".+");
         LocalDate dateDebut = getDate("Date de Début:");
@@ -36,21 +31,16 @@ public class VueProjet extends VueBase implements VueProjetInterface {
     @Override
     public void display(Projet obj) {
         displayMsg(obj.toString());
-        if (!obj.getListInvest().isEmpty()) {
+        if (!obj.getListInvest().isEmpty() && obj.getListInvest() != null) {
             String c = getMsg("Afficher les investissements? (O/N)", "[onON]{1}");
             if (c.equals("o") || c.equals("O")) {
-                displayMsg(obj.getListInvest().toString());
-                for (Invest i : obj.getListInvest()) {
-                    displayMsg(i.toString());
-                }
+                affListOBJ(obj.getListInvest());
             }
         }
-        if (!obj.getListTravail().isEmpty()) {
+        if (!obj.getListTravail().isEmpty() && obj.getListTravail() != null) {
             String c = getMsg("Afficher les employé(e)s travaillant sur le projet?", "[onON]{1}");
             if (c.equals("o") || c.equals("O")) {
-                for (Travail t : obj.getListTravail()) {
-                    displayMsg(t.toString());
-                }
+                affListOBJ(obj.getListTravail());
             }
         }
     }
@@ -90,9 +80,9 @@ public class VueProjet extends VueBase implements VueProjetInterface {
     }
 
     @Override
-    public void affAll(List lobj) {
+    public void affAll(List<Projet> lobj) {
         int i = 0;
-        for (Object p : lobj) {
+        for (Projet p : lobj) {
             displayMsg((++i) + ". " + p.toString());
         }
     }

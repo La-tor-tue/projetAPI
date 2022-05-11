@@ -6,10 +6,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class VueEmploye extends VueBase implements VueEmployeInterface {
-    @Override
-    public String getMsg(String invite) {
-        return null;
-    }
 
     @Override
     public Employe create() {
@@ -53,9 +49,9 @@ public class VueEmploye extends VueBase implements VueEmployeInterface {
     }
 
     @Override
-    public void affAll(List lobj) {
+    public void affAll(List<Employe> lobj) {
         int i = 0;
-        for (Object e : lobj) {
+        for (Employe e : lobj) {
             displayMsg((++i) + ". " + e.toString());
         }
     }
