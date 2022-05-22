@@ -90,7 +90,7 @@ public class Employe {
                 ", matricule='" + matricule + '\'' +
                 ", tel='" + tel + '\'' +
                 ", mail='" + mail + '\'' +
-                ", expertise=" + expertise +
+                ", expertise=" + expertise.getNom() +
                 '}';
     }
 

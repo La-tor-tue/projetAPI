@@ -2,13 +2,10 @@ package bureau.vue;
 
 import bureau.metier.Employe;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class VueEmploye extends VueBase implements VueEmployeInterface {
-    @Override
-    public String getMsg(String invite) {
-        return null;
-    }
 
     @Override
     public Employe create() {

@@ -1,13 +1,11 @@
 package bureau.modele;
 
 import bureau.metier.Discipline;
-
 import java.util.ArrayList;
-import java.util.List;
 
 public class ModeleDiscipline implements DAODiscipline {
 
-    private List<Discipline> disciplines = new ArrayList<>();
+    private ArrayList<Discipline> disciplines = new ArrayList<>();
 
     @Override
     public Discipline create(Discipline newD) {
@@ -19,7 +17,7 @@ public class ModeleDiscipline implements DAODiscipline {
     @Override
     public boolean delete(Discipline delD) {
         Discipline d = read(delD);
-        if (d != null && d.getListEmploye().isEmpty()) { //AGGREGATION FORTE
+        if (d != null && d.getListEmploye().isEmpty()) {
             disciplines.remove(d);
             return true;
         } else return false;
@@ -47,7 +45,7 @@ public class ModeleDiscipline implements DAODiscipline {
     }
 
     @Override
-    public List<Discipline> readAll() {
+    public ArrayList<Discipline> readAll() {
         return disciplines;
     }
 

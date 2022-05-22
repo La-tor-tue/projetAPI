@@ -2,16 +2,18 @@ package bureau.modele;
 
 import bureau.metier.Discipline;
 import bureau.metier.Employe;
+import bureau.metier.Projet;
 import myconnections.DBConnection;
 
 import java.sql.Connection;
 import java.sql.*;
+import java.util.ArrayList;
 import java.util.List;
 
 public class ModeleEmployeBD implements DAOEmploye {
-    private Connection dbConnect;
+    protected Connection dbConnect;
 
-    public void ModeleEmployeBD() {
+    public ModeleEmployeBD() {
         dbConnect = DBConnection.getConnection();
     }
 
@@ -52,7 +54,7 @@ public class ModeleEmployeBD implements DAOEmploye {
 
     @Override
     public boolean delete(Employe delRech) {
-        String query = "delete * from apiemploye where idemp = ?";
+        String query = "delete from apiemploye where idemp = ?";
         try (PreparedStatement pstm = dbConnect.prepareStatement(query)) {
             pstm.setInt(1, delRech.getIdEmp());
             int n = pstm.executeUpdate();
@@ -105,12 +107,12 @@ public class ModeleEmployeBD implements DAOEmploye {
     }
 
     @Override
-    public List<Employe> readAll() {
-        List<Employe> listEmp = null;
+    public ArrayList<Employe> readAll() {
+        ArrayList<Employe> listEmp = new ArrayList<>();
         String query = "Select * from apiemployedis";
         try (PreparedStatement pstm = dbConnect.prepareStatement(query)) {
             ResultSet rs = pstm.executeQuery();
-            do {
+            while (rs.next()) {
                 int idemp = rs.getInt(1);
                 String matricule = rs.getString(2);
                 String mail = rs.getString(3);
@@ -123,7 +125,7 @@ public class ModeleEmployeBD implements DAOEmploye {
                 Discipline dis = new Discipline(idDis, disNom, desc, null);
                 Employe find = new Employe(idemp, nom, prenom, matricule, tel, mail, dis);
                 listEmp.add(find);
-            } while (rs.next());
+            }
         } catch (SQLException e) {
             return null;
         }

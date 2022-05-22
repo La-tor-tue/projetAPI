@@ -37,7 +37,7 @@ public class Invest {
     public String toString() {
         return "Invest{" +
                 "quantiteJH=" + quantiteJH +
-                ", disc=" + disc +
+                ", disc=" + disc.getNom() +
                 '}';
     }
 

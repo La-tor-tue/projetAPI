@@ -1,17 +1,16 @@
 package bureau.modele;
 
 import bureau.metier.Discipline;
-import bureau.metier.Employe;
 import myconnections.DBConnection;
 
 import java.sql.Connection;
 import java.sql.*;
-import java.util.List;
+import java.util.ArrayList;
 
 public class ModeleDisciplineBD implements DAODiscipline {
-    private Connection dbConnect;
+    protected Connection dbConnect;
 
-    public void ModeleEmployeBD() {
+    public ModeleDisciplineBD() {
         dbConnect = DBConnection.getConnection();
     }
 
@@ -32,6 +31,7 @@ public class ModeleDisciplineBD implements DAODiscipline {
                     if (rs.next()) {
                         int idDis = rs.getInt(1);
                         newObj.setIdDis(idDis);
+                        newObj.setListEmploye(new ArrayList<>());
                     } else return null;
                 } catch (SQLException e) {
                     return null;
@@ -45,7 +45,7 @@ public class ModeleDisciplineBD implements DAODiscipline {
 
     @Override
     public boolean delete(Discipline delRech) {
-        String query = "delete * from apidisciplines where iddis = ?";
+        String query = "delete from apidisciplines where iddis = ?";
         try (PreparedStatement pstm = dbConnect.prepareStatement(query)) {
             pstm.setInt(1, delRech.getIdDis());
             int n = pstm.executeUpdate();
@@ -91,18 +91,18 @@ public class ModeleDisciplineBD implements DAODiscipline {
     }
 
     @Override
-    public List<Discipline> readAll() {
-        List<Discipline> listDis = null;
+    public ArrayList<Discipline> readAll() {
+        ArrayList<Discipline> listDis = new ArrayList<>();
         String query = "Select * from apidisciplines";
         try (PreparedStatement pstm = dbConnect.prepareStatement(query)) {
             ResultSet rs = pstm.executeQuery();
-            do {
+            while (rs.next()) {
                 int iddis = rs.getInt(1);
                 String nom = rs.getString(2);
                 String desc = rs.getString(3);
-                Discipline find = new Discipline(iddis, nom, desc, null);
+                Discipline find = new Discipline(iddis, nom, desc, new ArrayList<>());
                 listDis.add(find);
-            } while (rs.next());
+            }
         } catch (SQLException e) {
             return null;
         }

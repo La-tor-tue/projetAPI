@@ -102,7 +102,7 @@ public class PresenterEmploye {
         List<Employe> lemp = mde.readAll();
         affAll();
         do {
-            int c = Integer.parseInt(vuee.getMsg("Choix?"));
+            int c = Integer.parseInt(vuee.getMsg("Choix: ", "[0-9]{1,2}"));
             if (c == 0)
                 return null;
             if (c > 0 && c <= lemp.size()) return lemp.get(c - 1);

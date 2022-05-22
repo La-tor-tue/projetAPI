@@ -1,26 +1,28 @@
 package bureau.modele;
 
+import bureau.metier.Discipline;
 import bureau.metier.Employe;
-
 import java.util.ArrayList;
-import java.util.List;
 
 public class ModeleEmploye implements DAOEmploye {
 
-    private List<Employe> employes = new ArrayList<>();
+    private ArrayList<Employe> employes = new ArrayList<>();
 
     @Override
     public Employe create(Employe newE) {
         if (employes.contains(newE)) return null;
         employes.add(newE);
+        Discipline tmp = newE.getExpertise();
+        tmp.getListEmploye().add(newE);
         return newE;
     }
 
     @Override
     public boolean delete(Employe delE) {
         Employe e = read(delE);
-        if (e != null) { //AGGREGATION FORTE
+        if (e != null) {
             employes.remove(e);
+            e.getExpertise().getListEmploye().remove(e);
             return true;
         } else return false;
     }
@@ -48,7 +50,7 @@ public class ModeleEmploye implements DAOEmploye {
     }
 
     @Override
-    public List<Employe> readAll() {
+    public ArrayList<Employe> readAll() {
         return employes;
     }
 

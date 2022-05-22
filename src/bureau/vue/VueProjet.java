@@ -5,15 +5,12 @@ import bureau.metier.Projet;
 import bureau.metier.Travail;
 
 import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 
 public class VueProjet extends VueBase implements VueProjetInterface {
-
-    @Override
-    public String getMsg(String invite) {
-        return null;
-    }
 
     @Override
     public Projet create() {
@@ -22,9 +19,11 @@ public class VueProjet extends VueBase implements VueProjetInterface {
         LocalDate dateFin;
         do {
             dateFin = getDate("Date de Fin:");
-        }while (dateFin.isBefore(dateDebut));
+        } while (dateFin.isBefore(dateDebut));
 
-        int cout = Integer.parseInt(getMsg("Cout monétaire", "[0-9]+"));
+        double tmp = Double.parseDouble(getMsg("Cout monétaire:", "[0-9]+"));
+        BigDecimal cout = BigDecimal.valueOf(tmp);
+        cout = cout.setScale(2, RoundingMode.HALF_UP);
         Projet newP = new Projet(0, nom, dateDebut, dateFin, cout, null, null);
         return newP;
     }
@@ -32,19 +31,16 @@ public class VueProjet extends VueBase implements VueProjetInterface {
     @Override
     public void display(Projet obj) {
         displayMsg(obj.toString());
-        if (!obj.getListInvest().isEmpty()) {
+        if (!obj.getListInvest().isEmpty() && obj.getListInvest() != null) {
             String c = getMsg("Afficher les investissements? (O/N)", "[onON]{1}");
             if (c.equals("o") || c.equals("O")) {
-                for (Invest i : obj.getListInvest()) {
-                    displayMsg(i.toString());
-                }
+                affListOBJ(obj.getListInvest());
             }
-        } else if (!obj.getListInvest().isEmpty()) {
+        }
+        if (!obj.getListTravail().isEmpty() && obj.getListTravail() != null) {
             String c = getMsg("Afficher les employé(e)s travaillant sur le projet?", "[onON]{1}");
             if (c.equals("o") || c.equals("O")) {
-                for (Travail t : obj.getListTravail()) {
-                    displayMsg(t.toString());
-                }
+                affListOBJ(obj.getListTravail());
             }
         }
     }
@@ -55,11 +51,17 @@ public class VueProjet extends VueBase implements VueProjetInterface {
             int c = Integer.parseInt(getMsg("1.changement de date butoir\n2.changement cout\n3.fin", "[0-9]"));
             switch (c) {
                 case 1:
-                    LocalDate dateFin = getDate("Nouvelle date butoire:");
+                    LocalDate dateFin;
+                    do {
+                        dateFin = getDate("Nouvelle date butoire:");
+                    } while (obj.getDateDebut().isAfter(dateFin));
                     obj.setDateFin(dateFin);
                     break;
                 case 2:
-                    obj.setCout(Integer.parseInt(getMsg("Nouveau cout: ", "[0-9]+")));
+                    double tmp = Double.parseDouble(getMsg("Cout monétaire:", "[0-9]+"));
+                    BigDecimal cout = BigDecimal.valueOf(tmp);
+                    cout = cout.setScale(2, RoundingMode.HALF_UP);
+                    obj.setCout(cout);
                     break;
                 case 3:
                     return obj;
@@ -97,8 +99,14 @@ public class VueProjet extends VueBase implements VueProjetInterface {
     @Override
     public LocalDate getDate(String invite) {
         displayMsg(invite);
-        int j = Integer.parseInt(getMsg("Jour:", "[0-9]{1,2}"));
-        int m = Integer.parseInt(getMsg("Mois:", "[0-9]{1,2}"));
+        int j;
+        int m;
+        do {
+            j = Integer.parseInt(getMsg("Jour:", "[0-9]{1,2}"));
+        } while (j < 1 || j > 31);
+        do {
+            m = Integer.parseInt(getMsg("Mois:", "[0-9]{1,2}"));
+        } while (m < 1 || j > 12);
         int a = Integer.parseInt(getMsg("Année:", "[0-9]{4}"));
         LocalDate date = LocalDate.of(a, m, j);
         return date;

@@ -33,20 +33,20 @@ public class Gestion {
 
         }
         */
-        if (modeData.equals("db")){
-        mdD=new ModeleDisciplineBD();
-        mdP=new ModeleProjetBD();
-        mdE=new ModeleEmploye();
+        if (modeData.equals("db")) {
+            mdD = new ModeleDisciplineBD();
+            mdP = new ModeleProjetBD();
+            mdE = new ModeleEmployeBD();
 
-        }else {
+        } else {
             mdD = new ModeleDiscipline();
             mdP = new ModeleProjet();
             mdE = new ModeleEmploye();
         }
 
-        pDis= new PresenterDiscipline(mdD,vueDis);
-        pEmp= new PresenterEmploye(mdE,vueEmp);
-        pPj= new PresenterProjet(mdP,vuePj);
+        pDis = new PresenterDiscipline(mdD, vueDis);
+        pEmp = new PresenterEmploye(mdE, vueEmp);
+        pPj = new PresenterProjet(mdP, vuePj);
 
         pPj.setPdisc(pDis);
         pPj.setPemp(pEmp);
@@ -54,7 +54,7 @@ public class Gestion {
 
         do {
 
-            int ch = vueBase.menu(new String[]{"Projets","Employé","Dis","fin"});
+            int ch = vueBase.menu(new String[]{"Projets", "Employé", "Dis", "fin"});
 
             switch (ch) {
                 case 1:

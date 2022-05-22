@@ -49,7 +49,7 @@ public class Travail {
         return "Travail{" +
                 "pourcentage=" + pourcentage +
                 ", dateEngagement=" + dateEngagement +
-                ", emp=" + emp +
+                ", emp=" + emp.getNom() + " " + emp.getPrenom() +
                 '}';
     }
 

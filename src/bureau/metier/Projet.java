@@ -1,5 +1,6 @@
 package bureau.metier;
 
+import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Objects;
@@ -26,7 +27,7 @@ public class Projet {
      */
     private LocalDate dateDebut, dateFin;
 
-    private float cout;
+    private BigDecimal cout;
     /**
      * List des employés et de leur pourcentage du projet
      */
@@ -46,7 +47,7 @@ public class Projet {
      *                    constructeur parametré
      */
 
-    public Projet(int idPj, String nom, LocalDate dateDebut, LocalDate dateFin, float cout, ArrayList<Travail> listTravail, ArrayList<Invest> listInvest) {
+    public Projet(int idPj, String nom, LocalDate dateDebut, LocalDate dateFin, BigDecimal cout, ArrayList<Travail> listTravail, ArrayList<Invest> listInvest) {
         this.idPj = idPj;
         this.nom = nom;
         this.dateDebut = dateDebut;
@@ -176,11 +177,11 @@ public class Projet {
         this.listInvest = listInvest;
     }
 
-    public float getCout() {
+    public BigDecimal getCout() {
         return cout;
     }
 
-    public void setCout(float cout) {
+    public void setCout(BigDecimal cout) {
         this.cout = cout;
     }
 
@@ -193,8 +194,6 @@ public class Projet {
                 ", dateDebut=" + dateDebut +
                 ", dateFin=" + dateFin +
                 ", cout=" + cout +
-                ", listTravail=" + listTravail +
-                ", listInvest=" + listInvest +
                 '}';
     }
 

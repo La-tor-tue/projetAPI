@@ -58,8 +58,7 @@ public class Discipline {
         return "Discipline{" +
                 "idDis=" + idDis +
                 ", nom='" + nom + '\'' +
-                ", desc='" + desc + '\'' +
-                ", listEmploye=" + listEmploye +
+                ", desc='" + desc +
                 '}';
     }
 

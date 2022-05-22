@@ -3,13 +3,10 @@ package bureau.vue;
 import bureau.metier.Discipline;
 import bureau.metier.Employe;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class VueDiscipline extends VueBase implements VueDisciplineInterface {
-    @Override
-    public String getMsg(String invite) {
-        return null;
-    }
 
     @Override
     public Discipline create() {

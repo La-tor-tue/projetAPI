@@ -96,7 +96,7 @@ public class PresenterDiscipline {
         List<Discipline> ldis = mdd.readAll();
         affAll();
         do {
-            int c = Integer.parseInt(vued.getMsg("Choix?"));
+            int c = Integer.parseInt(vued.getMsg("Choix?", "[0-9]{1,2}"));
             if (c == 0)
                 return null;
             if (c > 0 && c <= ldis.size()) return ldis.get(c - 1);
