@@ -6,7 +6,7 @@ import java.util.ArrayList;
 import java.util.Objects;
 
 /**
- * classe metier de Projet
+ * classe metier de GroupeProjet
  *
  * @author BRANDON MORIAU
  * @version 0.1
@@ -188,7 +188,7 @@ public class Projet {
 
     @Override
     public String toString() {
-        return "Projet{" +
+        return "GroupeProjet{" +
                 "idPj=" + idPj +
                 ", nom='" + nom + '\'' +
                 ", dateDebut=" + dateDebut +

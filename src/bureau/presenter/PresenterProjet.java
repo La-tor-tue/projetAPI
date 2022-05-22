@@ -148,7 +148,7 @@ public class PresenterProjet {
             return;
         }
 
-        vuep.displayMsg("Projet crée");
+        vuep.displayMsg("GroupeProjet crée");
         vuep.display(newP);
     }
 
