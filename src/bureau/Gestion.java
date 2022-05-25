@@ -21,18 +21,20 @@ public class Gestion {
         DAODiscipline mdD;
         DAOEmploye mdE;
         DAOProjet mdP;
-        /*
-        A BESOIN DES VERISON GRAPHIQUE ET CONNECTE POUR FONCTIONNEE
-        if (modeVue.equals("console")){*/
-        vueDis = new VueDiscipline();
-        vueEmp = new VueEmploye();
-        vuePj = new VueProjet();
-        vueBase = new VueBase();
-            /*
-        }else {
 
+        if (modeVue.equals("console")) {
+            vueDis = new VueDiscipline();
+            vueEmp = new VueEmploye();
+            vuePj = new VueProjet();
+            vueBase = new VueBase();
+
+        } else {
+            vueDis = new VueDisciplineGraphique();
+            vueEmp = new VueEmployeGraphique();
+            vuePj = new VueProjetGraphique();
+            vueBase = new VueBaseGraphique();
         }
-        */
+
         if (modeData.equals("db")) {
             mdD = new ModeleDisciplineBD();
             mdP = new ModeleProjetBD();
